@@ -14,6 +14,7 @@ fn main() {
     let task_number = args[1].parse::<usize>().unwrap_or(0);
     match task_number {
         1068 => task::weird_algorithm::main(),
+        1069 => task::repetitions::main(),
         1083 => task::missing_no::main(),
         _ => panic!("unknown task"),
     }
