@@ -17,6 +17,7 @@ fn main() {
         1069 => task::repetitions::main(),
         1083 => task::missing_no::main(),
         1624 => task::queens::main(),
+        1674 => task::subordinates::main(),
         _ => panic!("unknown task"),
     }
 }
