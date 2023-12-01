@@ -16,6 +16,7 @@ fn main() {
         1068 => task::weird_algorithm::main(),
         1069 => task::repetitions::main(),
         1083 => task::missing_no::main(),
+        1130 => task::tree_matching::main(),
         1624 => task::queens::main(),
         1674 => task::subordinates::main(),
         _ => panic!("unknown task"),
