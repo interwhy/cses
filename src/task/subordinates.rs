@@ -1,14 +1,13 @@
 // https://cses.fi/problemset/task/1674
 
-use std::io::stdin;
+use std::io::{stdin, Result};
 
 #[derive(Debug)]
 struct TreeNode {
     pub children: Vec<usize>,
 }
 
-fn run() -> Result<String, Box<dyn std::error::Error>> {
-    let lines: Vec<String> = stdin().lines().map(|x| x.unwrap()).collect();
+fn run(lines: &[String]) -> String {
     let employee_count = lines[0].parse::<usize>().unwrap();
     let bosses: Vec<usize> = lines[1]
         .split(' ')
@@ -28,11 +27,11 @@ fn run() -> Result<String, Box<dyn std::error::Error>> {
     subordinates.resize(employee_count, None);
     calculate_subordinates(0, &tree, &mut subordinates);
 
-    Ok(subordinates
+    subordinates
         .iter()
         .map(|s| s.unwrap_or_default().to_string())
         .collect::<Vec<String>>()
-        .join(" "))
+        .join(" ")
 }
 
 fn calculate_subordinates(
@@ -60,5 +59,6 @@ fn calculate_subordinates(
 }
 
 pub fn main() {
-    println!("{}", run().unwrap());
+    let lines = stdin().lines().collect::<Result<Vec<String>>>().unwrap();
+    println!("{}", run(&lines));
 }

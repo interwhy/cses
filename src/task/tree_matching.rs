@@ -1,6 +1,6 @@
 // https://cses.fi/problemset/task/1130
 
-use std::io::stdin;
+use std::io::{stdin, Result};
 
 #[derive(Default, Debug)]
 struct Graph {
@@ -50,16 +50,16 @@ fn depth_first_search(
     }
 }
 
-fn run() -> String {
-    let lines: Vec<String> = stdin().lines().map(|x| x.unwrap()).collect();
-    let graph = parse_graph(lines.as_slice());
+fn run(lines: &[String]) -> String {
+    let graph = parse_graph(lines);
     let mut visited = Vec::new();
     visited.resize(graph.nodes.len(), false);
     let mut edges = 0;
-    depth_first_search(&graph, visited.as_mut_slice(), &mut edges, 0, usize::MAX);
+    depth_first_search(&graph, &mut visited, &mut edges, 0, usize::MAX);
     edges.to_string()
 }
 
 pub fn main() {
-    println!("{}", run());
+    let lines = stdin().lines().collect::<Result<Vec<String>>>().unwrap();
+    println!("{}", run(&lines));
 }

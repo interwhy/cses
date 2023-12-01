@@ -2,9 +2,8 @@
 
 use std::io::stdin;
 
-fn run() -> Result<String, Box<dyn std::error::Error>> {
-    let line = stdin().lines().next().unwrap()?;
-    let mut n = line.trim().parse::<u64>()?;
+fn run(line: &str) -> String {
+    let mut n = line.trim().parse::<usize>().unwrap();
     let mut result = Vec::with_capacity(10_000);
     result.push(n.to_string());
     while n != 1 {
@@ -15,10 +14,10 @@ fn run() -> Result<String, Box<dyn std::error::Error>> {
         }
         result.push(n.to_string());
     }
-    let s = result.join(" ");
-    Ok(s)
+    result.join(" ")
 }
 
 pub fn main() {
-    println!("{}", run().unwrap());
+    let line = stdin().lines().next().unwrap().unwrap();
+    println!("{}", run(&line));
 }

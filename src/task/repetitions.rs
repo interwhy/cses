@@ -2,11 +2,10 @@
 
 use std::io::stdin;
 
-fn run() -> Result<String, Box<dyn std::error::Error>> {
-    let line: String = stdin().lines().next().unwrap()?;
+fn run(line: &str) -> String {
     let mut max_count = 0;
     let mut count = 0;
-    let mut previous: Option<char> = None;
+    let mut previous = None;
     for ch in line.chars() {
         if Some(ch) != previous {
             max_count = max_count.max(count);
@@ -15,10 +14,10 @@ fn run() -> Result<String, Box<dyn std::error::Error>> {
         previous = Some(ch);
         count += 1;
     }
-    max_count = max_count.max(count);
-    Ok(max_count.to_string())
+    max_count.max(count).to_string()
 }
 
 pub fn main() {
-    println!("{}", run().unwrap());
+    let line: String = stdin().lines().next().unwrap().unwrap();
+    println!("{}", run(line.as_str()));
 }

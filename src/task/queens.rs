@@ -1,9 +1,8 @@
 // https://cses.fi/problemset/task/1624/
 
-use std::io::stdin;
+use std::io::{stdin, Result};
 
-fn run() -> Result<String, Box<dyn std::error::Error>> {
-    let lines: Vec<String> = stdin().lines().map(|x| x.unwrap()).collect();
+fn run(lines: &[String]) -> String {
     let mut reserved: u64 = 0;
     let mut i: u64 = 0;
     for line in lines {
@@ -16,7 +15,7 @@ fn run() -> Result<String, Box<dyn std::error::Error>> {
             }
         }
     }
-    Ok(queens(reserved, 0).to_string())
+    queens(reserved, 0).to_string()
 }
 
 const DIAGONAL_MASK_BACKWARDS: u64 = 0x0102_0408_1020_4080;
@@ -62,5 +61,6 @@ fn queens(reserved: u64, rank: usize) -> usize {
 }
 
 pub fn main() {
-    println!("{}", run().unwrap());
+    let lines = stdin().lines().collect::<Result<Vec<String>>>().unwrap();
+    println!("{}", run(&lines));
 }

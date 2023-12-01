@@ -1,26 +1,25 @@
 // https://cses.fi/problemset/task/1083
 
-use std::io::stdin;
+use std::io::{stdin, Result};
 
-fn run() -> Result<String, Box<dyn std::error::Error>> {
-    let lines: Vec<String> = stdin().lines().map(|x| x.unwrap()).collect();
-    let count = lines[0].parse::<usize>()?;
-    let tokens = lines[1].split_ascii_whitespace();
+fn run(lines: &[String]) -> String {
+    let count = lines[0].parse().unwrap();
     let mut numbers = Vec::with_capacity(count);
-    for token in tokens {
-        numbers.push(token.parse::<usize>()?);
+    for token in lines[1].split(' ') {
+        numbers.push(token.parse().unwrap());
     }
     numbers.sort();
-    let mut result: Option<usize> = None;
+    let mut result = None;
     for n in 1..count {
         if n != numbers[n - 1] {
             result = Some(n);
             break;
         }
     }
-    Ok(result.unwrap_or(count).to_string())
+    result.unwrap_or(count).to_string()
 }
 
 pub fn main() {
-    println!("{}", run().unwrap());
+    let lines = stdin().lines().collect::<Result<Vec<String>>>().unwrap();
+    println!("{}", run(&lines));
 }
